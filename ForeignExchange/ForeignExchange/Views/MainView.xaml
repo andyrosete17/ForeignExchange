@@ -5,41 +5,88 @@
     x:Class="ForeignExchange.Views.MainView"
     BackgroundColor="LightBlue"
     BindingContext="{Binding Main, Source= {StaticResource Locator}}">
+    <ContentPage.Padding>
+        <OnPlatform 
+            x:TypeArguments="Thickness"
+            iOS="20,30,20,10"
+            Android="10,10,10,10"/>
+    </ContentPage.Padding>
     <ContentPage.Content>
-        <StackLayout
-            Padding="10,0,10,10">
+        <StackLayout>
             <Label  
                 HorizontalOptions="CenterAndExpand"
                 FontSize="Large"
                 FontAttributes="Bold"
+                Margin="10"
                 Text="Foreign Exchange!"
                 VerticalOptions="CenterAndExpand">
             </Label>
-            <Label
-                Text="Amount">
-            </Label>
-            <Entry
-                Text="{Binding Amount, Mode=TwoWay}"
-                Placeholder="Enter the amount to convert...">
-            </Entry>
-            <Label
-                Text="Source rate:">
-            </Label>
-            <Picker
-                ItemDisplayBinding="{Bindign Name}"
-                ItemsSource="{Binding Rates}"
-                SelectedItem="{Binding SourceRate, Mode=TwoWay}"
-                Title="Select a source rate...">
-            </Picker>
-            <Label
-                Text="Target rate:">
-            </Label>
-            <Picker
-                ItemDisplayBinding="{Bindign Name}"
-                ItemsSource="{Binding Rates}"
-                SelectedItem="{Binding TargetRate, Mode=TwoWay}"
-                Title="Select a target rate...">
-            </Picker>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".5*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width=".5*"/>
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    Text="Amount"
+                    VerticalOptions="Center">                    
+                </Label>
+                <Entry
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    Grid.ColumnSpan="2"
+                    Placeholder="Enter the amount to convert..."
+                    Text="{Binding Amount, Mode=TwoWay}">
+                </Entry>
+                <Label
+                    Grid.Column="0"
+                    Grid.Row="1"
+                    Text="Source rate:"
+                    VerticalOptions="Center">
+                </Label>
+                <Picker
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    ItemDisplayBinding="{Binding Name}"
+                    ItemsSource="{Binding Rates}"
+                    SelectedItem="{Binding SourceRate, Mode=TwoWay}"
+                    Title="Select a source rate...">
+                </Picker>
+                <Label
+                    Grid.Column="0"
+                    Grid.Row="2"
+                    Text="Target rate:"
+                    VerticalOptions="Center">
+                </Label>
+                <Picker
+                    Grid.Column="1"
+                    Grid.Row="2"
+                    ItemDisplayBinding="{Binding Name}"
+                    ItemsSource="{Binding Rates}"
+                    SelectedItem="{Binding TargetRate, Mode=TwoWay}"
+                    Title="Select a target rate...">
+                </Picker>
+                <Image
+                    Grid.Column="2"
+                    Grid.Row="1"
+                    Grid.RowSpan="2"
+                    HeightRequest="40"
+                    WidthRequest="40"
+                    Source="switchIcon.png">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SwitchCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </Grid>
+            
             <ActivityIndicator
                 IsRunning="{Binding IsRunning, Mode=TwoWay}">
             </ActivityIndicator>
