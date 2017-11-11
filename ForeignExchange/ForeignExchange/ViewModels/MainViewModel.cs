@@ -1,6 +1,7 @@
 ﻿
 namespace ForeignExchange.ViewModels
 {
+    using ForeignExchange.Helpers;
     #region Using
     using ForeignExchange.Models;
     using GalaSoft.MvvmLight.Command;
@@ -175,9 +176,9 @@ namespace ForeignExchange.ViewModels
             {
                 await Application.Current.MainPage.DisplayAlert
                     (
-                        "Error",
-                        "You must enter a value in amount",
-                        "Accept"
+                        Languages.Error,
+                        Languages.AmountValidation,
+                        Languages.Accept
                         );
                 return;
             }
@@ -186,9 +187,9 @@ namespace ForeignExchange.ViewModels
             {
                 await Application.Current.MainPage.DisplayAlert
                                     (
-                                        "Error",
-                                        "You must enter a numeric value in amount",
-                                        "Accept"
+                                        Languages.Error,
+                                        Languages.AmountNumericValidation,
+                                        Languages.Accept
                                         );
                 return;
             }
@@ -196,9 +197,9 @@ namespace ForeignExchange.ViewModels
             {
                 await Application.Current.MainPage.DisplayAlert
                                    (
-                                       "Error",
-                                       "You must select a source rate",
-                                       "Accept"
+                                        Languages.Error,
+                                        Languages.SourceRateValidation,
+                                        Languages.Accept
                                        );
                 return;
             }
@@ -207,9 +208,9 @@ namespace ForeignExchange.ViewModels
             {
                 await Application.Current.MainPage.DisplayAlert
                                    (
-                                       "Error",
-                                       "You must select a target rate",
-                                       "Accept"
+                                        Languages.Error,
+                                        Languages.TargetRateValidation,
+                                        Languages.Accept
                                        );
                 return;
             }
@@ -228,7 +229,7 @@ namespace ForeignExchange.ViewModels
         async void LoadRates()
         {
             IsRunning = true;
-            Result = "Loading rates...";
+            Result =Languages.Loading;
             try
             {
                 var client = new HttpClient();
@@ -245,7 +246,7 @@ namespace ForeignExchange.ViewModels
                 Rates = new ObservableCollection<Rate>(rates);
                 IsRunning = false;
                 IsEnable = true;
-                Result = "Ready to convert!";
+                Result = Languages.Ready;
             }
             catch (Exception ex)
             {

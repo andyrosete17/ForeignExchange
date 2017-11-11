@@ -142,4 +142,7 @@
   <data name="Ready" xml:space="preserve">
     <value>Ready to convert...</value>
   </data>
+  <data name="AmountValidation" xml:space="preserve">
+    <value>You must enter a value in amount</value>
+  </data>
 </root>

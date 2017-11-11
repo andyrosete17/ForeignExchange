@@ -162,4 +162,7 @@
   <data name="Ready" xml:space="preserve">
     <value>Prêt à convertir ...</value>
   </data>
+  <data name="AmountValidation" xml:space="preserve">
+    <value>Vous devez entrer une valeur en montant</value>
+  </data>
 </root>

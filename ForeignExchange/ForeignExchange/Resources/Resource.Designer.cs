@@ -98,6 +98,15 @@ namespace ForeignExchange.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You must enter a value in amount.
+        /// </summary>
+        internal static string AmountValidation {
+            get {
+                return ResourceManager.GetString("AmountValidation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Convert.
         /// </summary>
         internal static string Convert {

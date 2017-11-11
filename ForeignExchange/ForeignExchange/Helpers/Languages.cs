@@ -74,5 +74,9 @@ namespace ForeignExchange.Helpers
         {
             get { return Resource.Title; }
         }
+        public static string AmountValidation
+        {
+            get { return Resource.AmountValidation; }
+        }
     }
 }
