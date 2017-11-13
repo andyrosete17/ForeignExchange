@@ -9,6 +9,5 @@
         {
             Main = new MainViewModel();       
         }
-
     }
 }

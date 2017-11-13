@@ -23,6 +23,7 @@ namespace ForeignExchange.Droid.Implementatios
             }
             catch (CultureNotFoundException ei)
             {
+                ei.ToString();
                 //iOS locale not valid .NET culture  (eg. "en-ES) : English in Spain
                 //fallback to first characters, in this case "en"
                 try
@@ -32,6 +33,7 @@ namespace ForeignExchange.Droid.Implementatios
                 }
                 catch (CultureNotFoundException e2)
                 {
+                    e2.ToString();
                     //iOSlanguage not valid .NET culture, falling back to english
                     ci = new CultureInfo("en");
                 }

@@ -145,4 +145,13 @@
   <data name="AmountValidation" xml:space="preserve">
     <value>You must enter a value in amount</value>
   </data>
+  <data name="InternetError" xml:space="preserve">
+    <value>Error!!! You must check your internet connection</value>
+  </data>
+  <data name="InternetSettingsError" xml:space="preserve">
+    <value>Error!!! You must check your internet settings</value>
+  </data>
+  <data name="RatesLoadedInternet" xml:space="preserve">
+    <value>Rates loaded from Internet</value>
+  </data>
 </root>

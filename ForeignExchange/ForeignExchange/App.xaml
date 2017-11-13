@@ -9,6 +9,10 @@
         <ResourceDictionary>
             <!--Locator-->
             <infra:InstanceLocator x:Key ="Locator"/>
+             
+            <!--Parameters-->
+            <x:String x:Key ="URLAPI">http://apiexchangerates.azurewebsites.net</x:String>
+            <x:String x:Key="URLRATES">/api/Rates</x:String>
         </ResourceDictionary>
 	</Application.Resources>
 </Application>

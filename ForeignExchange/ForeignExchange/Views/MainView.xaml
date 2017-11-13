@@ -106,7 +106,12 @@
                 Text="{Binding Result,Mode=TwoWay}"
                 Margin="0,20"
                 VerticalOptions="FillAndExpand"
-                VerticalTextAlignment="Center"></Label>
+                VerticalTextAlignment="Center">
+            </Label>
+            <Label
+                HorizontalOptions="Center"
+                Text="{Binding Status, Mode=TwoWay}">
+            </Label>
         </StackLayout>
     </ContentPage.Content>
 

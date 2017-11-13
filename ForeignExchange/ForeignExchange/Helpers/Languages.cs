@@ -78,5 +78,17 @@ namespace ForeignExchange.Helpers
         {
             get { return Resource.AmountValidation; }
         }
+        public static string InternetError
+        {
+            get { return Resource.InternetError; }
+        }
+        public static string InternetSettingsError
+        {
+            get { return Resource.InternetSettingsError; }
+        }
+        public static string RatesLoadedInternet
+        {
+            get { return Resource.RatesLoadedInternet; }
+        }
     }
 }

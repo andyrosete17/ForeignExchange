@@ -1,16 +1,15 @@
 ﻿
 namespace ForeignExchange.ViewModels
 {
-    using ForeignExchange.Helpers;
+    using ForeignExchange.ApiServices;
     #region Using
+    using ForeignExchange.Helpers;
     using ForeignExchange.Models;
+    using ForeignExchange.Services;
     using GalaSoft.MvvmLight.Command;
-    using Newtonsoft.Json;
-    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
-    using System.Net.Http;
     using System.Windows.Input;
     using Xamarin.Forms;
     #endregion Using
@@ -19,6 +18,13 @@ namespace ForeignExchange.ViewModels
         #region Events
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion Events
+
+        #region Services
+        ApiService apiService;
+        DialogService dialogService;
+        DataService dataService;
+        #endregion Services
+
         #region Attributes
         bool _isRunning;
         string _result;
@@ -26,6 +32,7 @@ namespace ForeignExchange.ViewModels
         Rate _sourceRate;
         Rate _targetRate;
         ObservableCollection<Rate> _rates;
+        string _status;
         #endregion Attributes
 
         #region Properties
@@ -144,10 +151,33 @@ namespace ForeignExchange.ViewModels
                 }
             }
         }
+        public string Status
+        {
+            get
+            {
+                return _status;
+            }
+            set
+            {
+                if (_status != value)
+                {
+                    _status = value;
+                    PropertyChanged?.Invoke
+                        (
+                            this,
+                            new PropertyChangedEventArgs(nameof(Status))
+                        );
+                }
+            }
+        }
         #endregion Properties
+
         #region Constructors
         public MainViewModel()
         {
+            apiService = new ApiService();
+            dialogService = new DialogService();
+            dataService = new DataService();
             LoadRates();
         }
         #endregion Constructors
@@ -167,50 +197,45 @@ namespace ForeignExchange.ViewModels
                 return new RelayCommand(Switch);
             }
         }
-
         #endregion Commands
+
         #region PrivateMethods
         async void Convert()
         {
             if (string.IsNullOrWhiteSpace(Amount))
             {
-                await Application.Current.MainPage.DisplayAlert
-                    (
+                await dialogService.ShowMessage(
                         Languages.Error,
-                        Languages.AmountValidation,
-                        Languages.Accept
+                        Languages.AmountValidation
                         );
                 return;
             }
             decimal amount = 0;
             if (!decimal.TryParse(Amount, out amount))
             {
-                await Application.Current.MainPage.DisplayAlert
+                await dialogService.ShowMessage
                                     (
                                         Languages.Error,
-                                        Languages.AmountNumericValidation,
-                                        Languages.Accept
+                                        Languages.AmountNumericValidation
                                         );
                 return;
             }
             if (SourceRate == null)
             {
-                await Application.Current.MainPage.DisplayAlert
+                await dialogService.ShowMessage
                                    (
                                         Languages.Error,
-                                        Languages.SourceRateValidation,
-                                        Languages.Accept
+                                        Languages.SourceRateValidation
                                        );
                 return;
             }
 
             if (TargetRate == null)
             {
-                await Application.Current.MainPage.DisplayAlert
+                await dialogService.ShowMessage
                                    (
                                         Languages.Error,
-                                        Languages.TargetRateValidation,
-                                        Languages.Accept
+                                        Languages.TargetRateValidation
                                        );
                 return;
             }
@@ -229,31 +254,38 @@ namespace ForeignExchange.ViewModels
         async void LoadRates()
         {
             IsRunning = true;
-            Result =Languages.Loading;
-            try
+            Result = Languages.Loading;
+
+            var connection = await apiService.CheckConnection();
+            if (connection.isSucess)
             {
-                var client = new HttpClient();
-                client.BaseAddress = new Uri("http://apiexchangerates.azurewebsites.net");
-                var controller = "/api/Rates";
-                var response = await client.GetAsync(controller);
-                var result = await response.Content.ReadAsStringAsync();
-                if (!response.IsSuccessStatusCode)
+                var url = Application.Current.Resources["URLAPI"].ToString();
+                var urlRate = Application.Current.Resources["URLRATES"].ToString();
+                var response = await apiService.GetList<Rate>(url, urlRate);
+                if (!response.isSucess)
                 {
                     IsRunning = false;
-                    Result = result;
+                    Result = response.Message;
+                    return;
                 }
-                var rates = JsonConvert.DeserializeObject<List<Rate>>(result);
-                Rates = new ObservableCollection<Rate>(rates);
+
+                //Storage data local
+                var rates = (List<Rate>)response.Result;
+                dataService.DeleteAll<Rate>();
+                dataService.Save(rates);
+
+                Rates = new ObservableCollection<Rate>((List<Rate>)response.Result);
                 IsRunning = false;
                 IsEnable = true;
                 Result = Languages.Ready;
+                Status = Languages.RatesLoadedInternet;
             }
-            catch (Exception ex)
+            else
             {
-                IsRunning = true;
-                Result = ex.Message;
+                IsRunning = false;
+                Result = connection.Message;
+                return;
             }
-
         }
 
         void Switch()

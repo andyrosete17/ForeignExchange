@@ -125,11 +125,38 @@ namespace ForeignExchange.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error!!! You must check your internet connection.
+        /// </summary>
+        internal static string InternetError {
+            get {
+                return ResourceManager.GetString("InternetError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error!!! You must check your internet settings.
+        /// </summary>
+        internal static string InternetSettingsError {
+            get {
+                return ResourceManager.GetString("InternetSettingsError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading rates....
         /// </summary>
         internal static string Loading {
             get {
                 return ResourceManager.GetString("Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rates loaded from Internet.
+        /// </summary>
+        internal static string RatesLoadedInternet {
+            get {
+                return ResourceManager.GetString("RatesLoadedInternet", resourceCulture);
             }
         }
         
