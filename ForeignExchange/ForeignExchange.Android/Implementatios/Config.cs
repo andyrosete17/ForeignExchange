@@ -18,20 +18,24 @@ namespace ForeignExchange.Droid.Implementatios
             {
                 if (string.IsNullOrEmpty(directoryDB))
                 {
-                    directoryDB = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+                    directoryDB = System.Environment.GetFolderPath
+                        (System.Environment.SpecialFolder.Personal);
                 }
                 return directoryDB;
             }
         }
+
         public ISQLitePlatform Platform
         {
             get
             {
                 if (platform == null)
                 {
+                   // SQLite.Net.Platform.XamarinAndroid.SQLitePlatformAndroid platformTemp = new SQLite.Net.Platform.XamarinAndroid.SQLitePlatformAndroid();
                     platform = new SQLite.Net.Platform.XamarinAndroid.SQLitePlatformAndroid();
+                    //platform = platformTemp;
                 }
-                return Platform;
+                return platform;
             }
         }
 

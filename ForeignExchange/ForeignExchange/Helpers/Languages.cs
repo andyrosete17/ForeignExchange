@@ -90,5 +90,19 @@ namespace ForeignExchange.Helpers
         {
             get { return Resource.RatesLoadedInternet; }
         }
+        public static string InternetErrorNoLocalData
+        {
+            get { return Resource.InternetErrorNoLocalData; }
+        }
+        public static string RatesLoadedLocal
+        {
+            get { return Resource.RatesLoadedLocal; }
+        }
+        public static string NoRatesLoaded
+        {
+            get { return Resource.NoRatesLoaded; }
+        }
+        
+
     }
 }

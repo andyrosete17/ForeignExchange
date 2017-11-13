@@ -174,4 +174,13 @@
   <data name="RatesLoadedInternet" xml:space="preserve">
     <value>Aus dem Internet geladene Raten</value>
   </data>
+  <data name="InternetErrorNoLocalData" xml:space="preserve">
+    <value>Es gibt keine Internetverbindung und berechnen die Preise nicht im Voraus. Bitte versuchen Sie es erneut mit Internetverbindung</value>
+  </data>
+  <data name="RatesLoadedLocal" xml:space="preserve">
+    <value>Preise von lokalen geladen</value>
+  </data>
+  <data name="NoRatesLoaded" xml:space="preserve">
+    <value>Keine Preise geladen</value>
+  </data>
 </root>

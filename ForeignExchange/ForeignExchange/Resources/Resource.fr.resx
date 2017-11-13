@@ -174,4 +174,13 @@
   <data name="RatesLoadedInternet" xml:space="preserve">
     <value>Tarifs chargés depuis Internet</value>
   </data>
+  <data name="InternetErrorNoLocalData" xml:space="preserve">
+    <value>Il n'y a pas de connexion Internet et ne facturent pas les tarifs à l'avance. Veuillez réessayer avec une connexion Internet</value>
+  </data>
+  <data name="RatesLoadedLocal" xml:space="preserve">
+    <value>Tarifs chargés du local</value>
+  </data>
+  <data name="NoRatesLoaded" xml:space="preserve">
+    <value>Aucun taux chargé</value>
+  </data>
 </root>

@@ -12,6 +12,8 @@ namespace ForeignExchange.ViewModels
     using System.ComponentModel;
     using System.Windows.Input;
     using Xamarin.Forms;
+    using System;
+    using System.Threading.Tasks;
     #endregion Using
     public class MainViewModel : INotifyPropertyChanged
     {
@@ -31,6 +33,7 @@ namespace ForeignExchange.ViewModels
         bool _isEnable;
         Rate _sourceRate;
         Rate _targetRate;
+        List<Rate> rates;
         ObservableCollection<Rate> _rates;
         string _status;
         #endregion Attributes
@@ -259,33 +262,51 @@ namespace ForeignExchange.ViewModels
             var connection = await apiService.CheckConnection();
             if (connection.isSucess)
             {
-                var url = Application.Current.Resources["URLAPI"].ToString();
-                var urlRate = Application.Current.Resources["URLRATES"].ToString();
-                var response = await apiService.GetList<Rate>(url, urlRate);
-                if (!response.isSucess)
-                {
-                    IsRunning = false;
-                    Result = response.Message;
-                    return;
-                }
-
-                //Storage data local
-                var rates = (List<Rate>)response.Result;
-                dataService.DeleteAll<Rate>();
-                dataService.Save(rates);
-
-                Rates = new ObservableCollection<Rate>((List<Rate>)response.Result);
-                IsRunning = false;
-                IsEnable = true;
-                Result = Languages.Ready;
-                Status = Languages.RatesLoadedInternet;
+                await LoadDataFromApi();
             }
             else
             {
+                LoadLocalData();
+            }
+
+            if (rates.Count == 0)
+            {
                 IsRunning = false;
-                Result = connection.Message;
+                IsEnable = false;
+                Result = Languages.InternetErrorNoLocalData;
+                Status = Languages.NoRatesLoaded;
                 return;
             }
+
+            Rates = new ObservableCollection<Rate>(rates);
+            IsRunning = false;
+            IsEnable = true;
+            Result = Languages.Ready;
+        }
+
+        private void LoadLocalData()
+        {
+            rates = dataService.Get<Rate>(false);
+            Status = Languages.RatesLoadedLocal;
+        }
+
+        private async Task LoadDataFromApi()
+        {
+            var url = Application.Current.Resources["URLAPI"].ToString();
+            var urlRate = Application.Current.Resources["URLRATES"].ToString();
+            var response = await apiService.GetList<Rate>(url, urlRate);
+            if (!response.isSucess)
+            {
+                LoadLocalData();
+                return;
+            }
+
+            //Storage data local
+            rates = (List<Rate>)response.Result;
+            dataService.DeleteAll<Rate>();
+            dataService.Save(rates);
+
+            Status = Languages.RatesLoadedInternet;
         }
 
         void Switch()

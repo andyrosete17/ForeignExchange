@@ -1,8 +1,8 @@
 ﻿
 namespace ForeignExchange.Data
 {
-    using ForeignExchange.Interfaces;
-    using ForeignExchange.Models;
+    using Interfaces;
+    using Models;
     using SQLite.Net;
     using SQLiteNetExtensions.Extensions;
     using System;

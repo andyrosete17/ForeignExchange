@@ -31,7 +31,9 @@ namespace ForeignExchange.iOS.Implementations
             {
                 if (platform  == null)
                 {
-                    platform = new SQLite.Net.Platform.XamarinIOS.SQLitePlatformIOS();
+                    SQLite.Net.Platform.XamarinIOS.SQLitePlatformIOS sqlitePlatform = new SQLite.Net.Platform.XamarinIOS.SQLitePlatformIOS();
+                    //platform = new SQLite.Net.Platform.XamarinIOS.SQLitePlatformIOS();
+                    platform = sqlitePlatform;
                 }
                 return platform;
             }

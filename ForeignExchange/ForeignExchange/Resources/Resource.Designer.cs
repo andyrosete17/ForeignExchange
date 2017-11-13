@@ -134,6 +134,15 @@ namespace ForeignExchange.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There are not internet connection and not load previously rates. Please try again with internet connection.
+        /// </summary>
+        internal static string InternetErrorNoLocalData {
+            get {
+                return ResourceManager.GetString("InternetErrorNoLocalData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error!!! You must check your internet settings.
         /// </summary>
         internal static string InternetSettingsError {
@@ -152,11 +161,29 @@ namespace ForeignExchange.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No rates loaded.
+        /// </summary>
+        internal static string NoRatesLoaded {
+            get {
+                return ResourceManager.GetString("NoRatesLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rates loaded from Internet.
         /// </summary>
         internal static string RatesLoadedInternet {
             get {
                 return ResourceManager.GetString("RatesLoadedInternet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rates loaded from local.
+        /// </summary>
+        internal static string RatesLoadedLocal {
+            get {
+                return ResourceManager.GetString("RatesLoadedLocal", resourceCulture);
             }
         }
         

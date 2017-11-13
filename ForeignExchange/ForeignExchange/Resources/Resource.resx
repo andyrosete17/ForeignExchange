@@ -154,4 +154,13 @@
   <data name="RatesLoadedInternet" xml:space="preserve">
     <value>Rates loaded from Internet</value>
   </data>
+  <data name="InternetErrorNoLocalData" xml:space="preserve">
+    <value>There are not internet connection and not load previously rates. Please try again with internet connection</value>
+  </data>
+  <data name="RatesLoadedLocal" xml:space="preserve">
+    <value>Rates loaded from local</value>
+  </data>
+  <data name="NoRatesLoaded" xml:space="preserve">
+    <value>No rates loaded</value>
+  </data>
 </root>
